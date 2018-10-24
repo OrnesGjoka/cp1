@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--
+    Budgets
+    -->
+        <record id="view_kategori_search" model="ir.ui.view">
+            <field name="name">kategori.shpenzimi.search</field>
+            <field name="model">kategori.shpenzimi</field>
+            <field name="arch" type="xml">
+                <search string="Kategoria">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Kategoria"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_kategori_tree" model="ir.ui.view">
+            <field name="name">kategori.shpenzimi.tree</field>
+            <field name="model">kategori.shpenzimi</field>
+            <field name="arch" type="xml">
+                <tree string="Kategorite">
+                    <field name="name"/>
+                    <field name="info"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kategori_form" model="ir.ui.view">
+            <field name="name">kategori.shpenzimi.form</field>
+            <field name="model">kategori.shpenzimi</field>
+            <field name="arch" type="xml">
+                <form string="Kategorite">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Emri" required="True"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="info"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_kategori" model="ir.actions.act_window">
+            <field name="name">Kategoria</field>
+            <field name="res_model">kategori.shpenzimi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_kategori_tree"/>
+            <field name="search_view_id" ref="view_kategori_search"/>
+        </record>
+
+    <menuitem id="menu_budget"  name="Buxheti" sequence="1"/>
+
+
+        <menuitem action="action_kategori" id="menu_kategori" parent="menu_budget" name="Kategorite" sequence="1"/>
+
+
+    <record id="view_produkt_search" model="ir.ui.view">
+            <field name="name">produkti.search</field>
+            <field name="model">produkti</field>
+            <field name="arch" type="xml">
+                <search string="Produkti">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Produkti"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_produkt_tree" model="ir.ui.view">
+            <field name="name">produkti.tree</field>
+            <field name="model">produkti</field>
+            <field name="arch" type="xml">
+                <tree string="Produkti">
+                    <field name="name"/>
+                    <field name="cmimi"/>
+                    <field name="info_produkti"/>
+                    <field name="kategori_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_produkt_form" model="ir.ui.view">
+            <field name="name">produkti.form</field>
+            <field name="model">produkti</field>
+            <field name="arch" type="xml">
+                <form string="Produkti">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Emri" required="True"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="kodi"/>
+                            <field name="cmimi"/>
+                        </group>
+                        <group>
+                            <field name="info_produkti"/>
+                            <field name="kategori_id"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_produkt" model="ir.actions.act_window">
+            <field name="name">Produkti</field>
+            <field name="res_model">produkti</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_produkt_tree"/>
+            <field name="search_view_id" ref="view_produkt_search"/>
+        </record>
+
+    <menuitem action="action_produkt" id="menu_produkt" parent="menu_budget" name="Produktet" sequence="2"/>
+
+    <record id="view_planifikim_search" model="ir.ui.view">
+            <field name="name">planifikim.buxheti.search</field>
+            <field name="model">planifikim.buxheti</field>
+            <field name="arch" type="xml">
+                <search string="Planifikimi">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Planifikimi"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_planifikimi_tree" model="ir.ui.view">
+            <field name="name">planifikim.buxheti.tree</field>
+            <field name="model">planifikim.buxheti</field>
+            <field name="arch" type="xml">
+                <tree string="Planifikimi">
+                    <field name="name"/>
+                    <field name="date_fillimi"/>
+                    <field name="date_perfundimi"/>
+                    <field name="vlere_limit"/>
+                    <field name="state"/>
+                    <field name="total_planifikuar"/>
+                    <field name="total_realizuar"/>
+                    <field name="diferenca"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_planifikimi_form" model="ir.ui.view">
+            <field name="name">planifikim.buxheti.form</field>
+            <field name="model">planifikim.buxheti</field>
+            <field name="arch" type="xml">
+                <form string="Planifikimi">
+                    <header>
+                        <button string="Confirm" name="confirm" states="draft" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Emri" required="True"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="date_fillimi"/>
+                            <field name="date_perfundimi"/>
+                        </group>
+                        <group>
+                            <field name="vlere_limit" widget="monetary"/>
+                            <field name="total_planifikuar" widget="monetary"/>
+                            <field name="total_realizuar" widget="monetary"/>
+                            <field name="diferenca" widget="monetary"/>
+                        </group>
+                        <notebook>
+                            <page string="Rreshta planifikimi">
+                                <field name="planifikim_ids" colspan="4" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree string="Rreshta planifikimi">
+                                        <field name="name"/>
+                                        <field name="kategori_id"/>
+                                        <field name="vlera"/>
+                                        <field name="info_rresht"/>
+
+                                    </tree>
+                                    <form string="Rreshta planifikimi">
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="kategori_id"/>
+                                                <field name="vlera" widget="monetary"/>
+                                                <field name="info_rresht"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Rreshta shpenzimi">
+                                <field name="shpenzim_ids" colspan="4" nolabel="1" >
+                                    <tree string="Rreshta shpenzimi">
+                                        <field name="name"/>
+                                        <field name="date_rreshti"/>
+                                        <field name="info_rreshti"/>
+                                        <field name="produkt_id"/>
+                                        <field name="kategori_id"/>
+                                        <field name="shpenzim_id"/>
+                                        <field name="vlera"/>
+
+                                    </tree>
+                                    <form string="Rreshta shpenzimi">
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                        <field name="date_rreshti"/>
+                                        <field name="info_rreshti"/>
+                                        <field name="produkt_id"/>
+                                        <field name="kategori_id"/>
+                                        <field name="shpenzim_id"/>
+                                        <field name="vlera"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_planifikim" model="ir.actions.act_window">
+            <field name="name">Planifikimi</field>
+            <field name="res_model">planifikim.buxheti</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_planifikimi_tree"/>
+            <field name="search_view_id" ref="view_planifikim_search"/>
+        </record>
+
+    <menuitem action="action_planifikim" id="menu_planifikim" parent="menu_budget" name="Planifkim" sequence="3"/>
+
+
+    <record id="view_shpenzimi_search" model="ir.ui.view">
+            <field name="name">shpenzimi.search</field>
+            <field name="model">shpenzimi</field>
+            <field name="arch" type="xml">
+                <search string="Shpenzimi">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Shpenzimi"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_shpenzimi_tree" model="ir.ui.view">
+            <field name="name">shpenzimi.tree</field>
+            <field name="model">shpenzimi</field>
+            <field name="arch" type="xml">
+                <tree string="Shpenzimi">
+                    <field name="name"/>
+                    <field name="date_shpenzimi"/>
+                    <field name="info_shpenzimi"/>
+                    <field name="vlera_shpenzimit"/>
+                    <field name="state"/>
+                    <field name="shpenzim_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_shpenzimi_form" model="ir.ui.view">
+            <field name="name">shpenzimi.form</field>
+            <field name="model">shpenzimi</field>
+            <field name="arch" type="xml">
+                <form string="Shpenzimi">
+                    <header>
+                        <button string="Confirm" name="confirm" states="draft" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Emri" required="True"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="date_shpenzimi"/>
+                            <field name="info_shpenzimi"/>
+                        </group>
+                        <group>
+                           <field name="vlera_shpenzimit" widget="monetary"/>
+                            <field name="state"/>
+                            <field name="shpenzim_ids"/>
+                        </group>
+                        <notebook>
+                            <page string="Rreshta planifikimi">
+                                <field name="shpenzim_ids" colspan="4" nolabel="1">
+                                    <tree string="Rreshta planifikimi">
+                                        <field name="name"/>
+                                        <field name="kategori_id"/>
+                                        <field name="vlera"/>
+
+                                    </tree>
+                                    <form string="Rreshta planifikimi">
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="kategori_id"/>
+                                                <field name="vlera" widget="monetary"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Rreshta shpenzimi">
+                                <field name="shpenzim_ids" colspan="4" nolabel="1" >
+                                    <tree string="Rreshta shpenzimi">
+                                        <field name="name"/>
+                                        <field name="date_rreshti"/>
+                                        <field name="info_rreshti"/>
+                                        <field name="produkt_id"/>
+                                        <field name="kategori_id"/>
+                                        <field name="shpenzim_id"/>
+                                        <field name="vlera"/>
+
+                                    </tree>
+                                    <form string="Rreshta shpenzimi">
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                        <field name="date_rreshti"/>
+                                        <field name="info_rreshti"/>
+                                        <field name="produkt_id"/>
+                                        <field name="kategori_id"/>
+                                        <field name="shpenzim_id"/>
+                                        <field name="vlera"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shpenzimi" model="ir.actions.act_window">
+            <field name="name">Shpenzimi</field>
+            <field name="res_model">shpenzimi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_shpenzimi_tree"/>
+            <field name="search_view_id" ref="view_shpenzimi_search"/>
+        </record>
+
+    <menuitem action="action_shpenzimi" id="menu_shpenzimi" parent="menu_budget" name="Shpenzimet" sequence="4"/>
+
+
+
+
+
+</odoo>
